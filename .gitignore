@@ -1,0 +1,41 @@
+target/
+!target/*.war
+!target/*.jar
+
+# Package Files #
+*.jar
+*.war
+*.nar
+*.ear
+*.zip
+*.tar.gz
+*.rar
+
+# logs and databases #
+*.log
+*.sql
+*.jnl
+
+# Java source files #
+*.class
+*.hprof
+*.data
+
+# IDE and Editor folders #
+.idea/
+*.iml
+*.iws
+.project
+.classpath
+.settings/
+.vscode/
+*.code-workspace
+
+# OS generated files #
+.DS_Store
+Thumbs.db
+
+# Other common ignore files #
+*.bak
+*.swp
+*.tmp
