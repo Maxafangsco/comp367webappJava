@@ -1,6 +1,11 @@
 pipeline {
     agent any
 
+    tools {
+        // Specify the Maven version configured in the Global Tool Configuration
+        maven 'maven3'
+    }
+
     stages {
         stage('Checkout') {
             steps {
@@ -11,7 +16,7 @@ pipeline {
         stage('Build') {
             steps {
                 script {
-                    // Maven 'clean install' command
+                    // Use Maven to clean and install
                     sh 'mvn clean install'
                 }
             }
