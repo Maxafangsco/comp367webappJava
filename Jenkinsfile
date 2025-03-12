@@ -5,7 +5,7 @@ pipeline {
     }
 
     environment {
-        DOCKER_IMAGE = "maxafangscodev/maven-java-webapp:latest"
+        DOCKER_IMAGE = "maxafangscodev/maven-java-webapp:${env.BUILD_NUMBER}"
     }
 
        stages {
