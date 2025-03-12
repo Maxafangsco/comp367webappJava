@@ -14,7 +14,7 @@ RUN mvn clean package -DskipTests
 FROM tomcat:9.0.53-jdk11-openjdk
 
 # Copy the WAR file from the build stage to the Tomcat webapps directory
-COPY --from=build /app/target/comp367webapp-1.0-SNAPSHOT.war /usr/local/tomcat/webapps/
+COPY --from=build /app/target/comp367webapp-1.0-SNAPSHOT.war /usr/local/tomcat/webapps/ROOT.war
 
 # Expose port 8080
 EXPOSE 8080
