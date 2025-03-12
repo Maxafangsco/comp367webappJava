@@ -1,25 +1,51 @@
 pipeline {
     agent any
-
     tools {
-        // Specify the Maven version configured in the Global Tool Configuration
         maven 'maven3'
     }
 
-    stages {
+    environment {
+        DOCKER_IMAGE = "maxafangscodev/maven-java-webapp:latest"
+    }
+
+       stages {
+           stage('Docker Login') {
+            steps {
+                withCredentials([string(credentialsId: 'credentialID_DockerHubPWD', variable: 'DOCKER_HUB_TOKEN')]) {
+                    sh 'docker login -u maxafangscodev -p ${DOCKER_HUB_TOKEN}'
+                }
+            }
+        }
         stage('Checkout') {
             steps {
-                checkout scm
+                echo 'Cloning repo...'
+                git 'https://github.com/Maxafangsco/comp367webappJava.git'
             }
         }
 
-        stage('Build') {
+        stage('Build Maven Project') {
             steps {
-                script {
-                    // Use Maven to clean and install
-                    sh 'mvn clean install'
-                }
+                echo 'Building project...'
+                sh 'mvn clean package -DskipTests'
             }
+        }
+
+        stage('Docker Build') {
+            steps {
+                sh "docker build -t ${DOCKER_IMAGE} ."
+            }
+        }
+
+        stage('Docker Push') {
+            steps {
+                sh "docker push ${DOCKER_IMAGE}"
+            }
+        }
+    }
+
+    post {
+        always {
+            sh 'docker logout'
         }
     }
 }
